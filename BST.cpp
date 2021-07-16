@@ -1,6 +1,7 @@
 #include<iostream>
 #include<math.h>
 #include<vector>
+#include<stack>
 
 using namespace std;
 
@@ -65,11 +66,85 @@ TreeNode* searchBST(TreeNode* root, int val)
     return temp;
 }
 
+
+void inorderTraversalUtil(TreeNode* root, vector<int>& order)
+{
+    if(root == nullptr)
+        return;
+
+    inorderTraversalUtil(root->left, order);
+    // cout<<root->val<<" ";
+    order.push_back(root->val);
+    inorderTraversalUtil(root->right, order);
+}
+
+vector<int> inorderTraversal(TreeNode* root)
+{
+    vector<int> order;
+
+    inorderTraversalUtil(root, order);
+
+    return order;
+}
+
+void preOrderTraversalUtil(TreeNode* root, vector<int>& order)
+{
+    if(root == nullptr)
+        return;
+
+    order.push_back(root->val);
+    preOrderTraversalUtil(root->left, order);
+    
+    preOrderTraversalUtil(root->right, order);
+}
+
+vector<int> preorderTraversal(TreeNode* root)
+{
+    vector<int> order;
+
+    preOrderTraversalUtil(root, order);
+
+    return order;
+}
+
+
+void postOrderTraversalUtil(TreeNode* root, vector<int>& order)
+{
+    if(root == nullptr)
+        return;
+
+    
+    postOrderTraversalUtil(root->left, order);
+    
+    postOrderTraversalUtil(root->right, order);
+
+    order.push_back(root->val);
+}
+
+vector<int> postOrderTraversal(TreeNode* root)
+{
+    vector<int> order;
+
+    postOrderTraversalUtil(root, order);
+
+    return order;
+}
+
+
 int main()
 {   
-    TreeNode* root;
+    TreeNode* root = new TreeNode(1);
 
-    root->val = 5;
+    //root->val = 5;
 
+    root->right = new TreeNode(2);
+    root->right->left = new TreeNode(3);
+
+    vector<int> order = postOrderTraversal(root);
+
+    for(int i : order)
+    {
+        cout<<i<<" ";
+    }
 
 }
