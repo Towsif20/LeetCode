@@ -131,6 +131,43 @@ vector<int> postOrderTraversal(TreeNode* root)
 }
 
 
+
+
+
+void leverOrderUtil(TreeNode* root, int level, vector<vector<int>>& order)
+{
+    if(root == nullptr)
+        return;
+
+
+    if(order.size() == level)
+    {
+        vector<int> v;
+        order.push_back(v);
+    }
+
+    order[level].push_back(root->val);
+
+    leverOrderUtil(root->left, level+1, order);
+    leverOrderUtil(root->right, level+1, order);
+}
+
+
+vector<vector<int>> levelOrder(TreeNode* root)
+{
+    vector<vector<int>> order;
+
+
+    leverOrderUtil(root, 0, order);
+
+
+    return order;
+}
+
+
+
+
+
 int main()
 {   
     TreeNode* root = new TreeNode(1);
