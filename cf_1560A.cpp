@@ -8,12 +8,16 @@ int findKthTerm(int k)
 
     for(int i=1;i<=k;i++)
     {
-        if(i%3 == 0 || i%10 == 3)
+        x++;
+
+        if(x%3 == 0 || x%10 == 3)
             x++;//continue;
 
-        x++;
+        if(x%3 == 0 || x%10 == 3)
+            x++;//continue;
     }
 
+    
     return x;
 }
 
@@ -30,7 +34,7 @@ int main()
 
         x = findKthTerm(k);
 
-        cout<<x<<endl<<endl;
+        cout<<x<<endl;
     }
 
     return 0;
