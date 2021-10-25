@@ -1,14 +1,12 @@
-#include<iostream>
-#include<bits/stdc++.h>
-#include<math.h>
-#include<vector>
+#include <iostream>
+#include <bits/stdc++.h>
+#include <math.h>
+#include <vector>
 
 using namespace std;
 
-
- 
-struct ListNode 
-{  
+struct ListNode
+{
     int val;
     ListNode *next;
     ListNode() : val(0), next(nullptr) {}
@@ -16,27 +14,25 @@ struct ListNode
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-
-
-ListNode* addTwoNumbers(ListNode* l1, ListNode* l2)
+ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
 {
-    ListNode* root = nullptr;
+    ListNode *root = nullptr;
 
-    ListNode* temp1 = l1;
-    ListNode* temp2 = l2;
-    ListNode* temp;
+    ListNode *temp1 = l1;
+    ListNode *temp2 = l2;
+    ListNode *temp;
 
     int mod = 0;
     int div = 0;
 
-    while(temp1 != nullptr && temp2 != nullptr)
+    while (temp1 != nullptr && temp2 != nullptr)
     {
         int val = temp1->val + temp2->val + div;
 
-        mod = val%10;
-        div = val/10;
+        mod = val % 10;
+        div = val / 10;
 
-        if(root == nullptr)
+        if (root == nullptr)
         {
             root = new ListNode(mod);
             temp1 = temp1->next;
@@ -52,12 +48,12 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2)
         temp = temp->next;
     }
 
-    while(temp1 != nullptr)
+    while (temp1 != nullptr)
     {
         int val = temp1->val + div;
 
-        mod = val%10;
-        div = val/10;
+        mod = val % 10;
+        div = val / 10;
 
         temp1 = temp1->next;
 
@@ -65,12 +61,12 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2)
         temp = temp->next;
     }
 
-    while(temp2 != nullptr)
+    while (temp2 != nullptr)
     {
         int val = temp2->val + div;
 
-        mod = val%10;
-        div = val/10;
+        mod = val % 10;
+        div = val / 10;
 
         temp2 = temp2->next;
 
@@ -78,7 +74,7 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2)
         temp = temp->next;
     }
 
-    if(div != 0)
+    if (div != 0)
     {
         temp->next = new ListNode(div);
     }
@@ -86,16 +82,16 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2)
     return root;
 }
 
-ListNode* removeElements(ListNode* head, int val)
+ListNode *removeElements(ListNode *head, int val)
 {
-    ListNode* temp = head;
-    ListNode* prev = temp;
+    ListNode *temp = head;
+    ListNode *prev = temp;
 
-    while(temp)
+    while (temp)
     {
-        if(temp->val == val)
+        if (temp->val == val)
         {
-            if(temp == prev)
+            if (temp == prev)
             {
                 prev = prev->next;
 
@@ -104,7 +100,7 @@ ListNode* removeElements(ListNode* head, int val)
                 temp = temp->next;
             }
 
-            else if(temp->next == nullptr)
+            else if (temp->next == nullptr)
             {
                 prev->next = nullptr;
                 temp = temp->next;
@@ -122,21 +118,20 @@ ListNode* removeElements(ListNode* head, int val)
             prev = temp;
             temp = temp->next;
         }
-
     }
 
     return head;
 }
 
-void deleteNode(ListNode* node)
+void deleteNode(ListNode *node)
 {
-    ListNode* temp = node;
-    ListNode* prev;
+    ListNode *temp = node;
+    ListNode *prev;
 
-    while(temp->next)
+    while (temp->next)
     {
         temp->val = temp->next->val;
-        
+
         prev = temp;
         temp = temp->next;
     }
@@ -148,15 +143,15 @@ void deleteNode(ListNode* node)
 
 bool hasCycle(ListNode *head)
 {
-    ListNode* slow = head;
-    ListNode* fast = head;
+    ListNode *slow = head;
+    ListNode *fast = head;
 
-    while(slow && fast && fast->next)
+    while (slow && fast && fast->next)
     {
         slow = slow->next;
         fast = fast->next->next;
 
-        if(slow == fast)
+        if (slow == fast)
             return true;
     }
 
@@ -165,29 +160,29 @@ bool hasCycle(ListNode *head)
 
 ListNode *detectCycle(ListNode *head)
 {
-    ListNode* slow = head;
-    ListNode* fast = head;
+    ListNode *slow = head;
+    ListNode *fast = head;
 
     bool loop = false;
 
-    while(slow && fast && fast->next)
+    while (slow && fast && fast->next)
     {
         slow = slow->next;
         fast = fast->next->next;
 
-        if(slow == fast)
+        if (slow == fast)
         {
             loop = true;
             break;
         }
     }
 
-    if(!loop)
+    if (!loop)
         return nullptr;
 
     slow = head;
 
-    while(slow != fast)
+    while (slow != fast)
     {
         slow = slow->next;
         fast = fast->next;
@@ -196,13 +191,13 @@ ListNode *detectCycle(ListNode *head)
     return slow;
 }
 
-bool isPalindrome(ListNode* head)
+bool isPalindrome(ListNode *head)
 {
     vector<int> v;
 
-    ListNode* temp = head;
+    ListNode *temp = head;
 
-    while(temp)
+    while (temp)
     {
         v.push_back(temp->val);
 
@@ -211,22 +206,22 @@ bool isPalindrome(ListNode* head)
 
     int len = v.size();
 
-    for(int i=0;i<len;i++)
+    for (int i = 0; i < len; i++)
     {
-        if(v[i] != v[len-i-1])
+        if (v[i] != v[len - i - 1])
             return false;
     }
 
     return true;
 }
 
-ListNode* reverseList(ListNode* head)
+ListNode *reverseList(ListNode *head)
 {
     vector<int> v;
 
-    ListNode* temp = head;
+    ListNode *temp = head;
 
-    while(temp)
+    while (temp)
     {
         v.push_back(temp->val);
 
@@ -235,12 +230,12 @@ ListNode* reverseList(ListNode* head)
 
     int len = v.size();
 
-    ListNode* reverse = nullptr;
-    ListNode* current = nullptr;
+    ListNode *reverse = nullptr;
+    ListNode *current = nullptr;
 
-    for(int i=len-1;i>=0;i--)
+    for (int i = len - 1; i >= 0; i--)
     {
-        if(reverse == nullptr)
+        if (reverse == nullptr)
         {
             reverse = new ListNode(v[i]);
             current = reverse;
@@ -275,21 +270,21 @@ ListNode *getIntersectionNode(ListNode *headA, ListNode *headB)
 
     // return nullptr;
 
-    unordered_map<ListNode*, int> map;
+    unordered_map<ListNode *, int> map;
 
-    ListNode* tempA = headA;
-    ListNode* tempB = headB;
+    ListNode *tempA = headA;
+    ListNode *tempB = headB;
 
-    while(tempA)
+    while (tempA)
     {
         map[tempA] = tempA->val;
 
         tempA = tempA->next;
     }
 
-    while(tempB)
+    while (tempB)
     {
-        if(map.find(tempB) != map.end())
+        if (map.find(tempB) != map.end())
             return tempB;
 
         map[tempB] = tempB->val;
@@ -300,52 +295,51 @@ ListNode *getIntersectionNode(ListNode *headA, ListNode *headB)
     return nullptr;
 }
 
-ListNode* deleteDuplicates2(ListNode* head)
+ListNode *deleteDuplicates2(ListNode *head)
 {
     //keep one occurrence of repeating element
 
-    ListNode* temp = head;
-    ListNode* first = head;
+    ListNode *temp = head;
+    ListNode *first = head;
 
-    while(temp)
+    while (temp)
     {
-        if(first->val != temp->val)
+        if (first->val != temp->val)
         {
             first->next = temp;
             first = temp;
         }
-        
+
         temp = temp->next;
     }
 
-    if(first != temp)
+    if (first != temp)
         first->next = nullptr;
 
     return head;
 }
 
-
-ListNode* deleteDuplicates(ListNode* head)
+ListNode *deleteDuplicates(ListNode *head)
 {
     //keep none of repeating elements
     //cant solve yet :(
 
     map<int, int> map;
 
-    ListNode* temp = head;
+    ListNode *temp = head;
 
-    while(temp)
+    while (temp)
     {
         map[temp->val]++;
         temp = temp->next;
     }
 
-    ListNode* dummy = new ListNode(0);
+    ListNode *dummy = new ListNode(0);
     temp = dummy;
 
-    for(auto i : map)
+    for (auto i : map)
     {
-        if(i.second == 1)
+        if (i.second == 1)
         {
             temp->next = new ListNode(i.first);
             temp = temp->next;
@@ -355,16 +349,14 @@ ListNode* deleteDuplicates(ListNode* head)
     return dummy->next;
 }
 
-
-
-ListNode* swapPairs(ListNode* head)
+ListNode *swapPairs(ListNode *head)
 {
-    if(head == nullptr || head->next == nullptr)
+    if (head == nullptr || head->next == nullptr)
         return head;
 
-    ListNode* temp = head;
+    ListNode *temp = head;
 
-    while(temp && temp->next)
+    while (temp && temp->next)
     {
         int t = temp->val;
         temp->val = temp->next->val;
@@ -373,21 +365,20 @@ ListNode* swapPairs(ListNode* head)
         temp = temp->next->next;
     }
 
-
     return head;
 }
 
-ListNode* swapNodes(ListNode* head, int k)
+ListNode *swapNodes(ListNode *head, int k)
 {
     int len = 0;
-    ListNode* temp = head;
-    ListNode* k_from_begin = nullptr;
+    ListNode *temp = head;
+    ListNode *k_from_begin = nullptr;
 
-    while(temp)
+    while (temp)
     {
         len++;
 
-        if(len == k)
+        if (len == k)
         {
             k_from_begin = temp;
         }
@@ -396,7 +387,7 @@ ListNode* swapNodes(ListNode* head, int k)
     }
 
     temp = head;
-    for(int i=0;i<len-k;i++)
+    for (int i = 0; i < len - k; i++)
     {
         temp = temp->next;
     }
@@ -406,21 +397,191 @@ ListNode* swapNodes(ListNode* head, int k)
     return head;
 }
 
+int getDecimalValue(ListNode *head)
+{
+    int len = 0;
+
+    ListNode *temp = head;
+
+    while (temp)
+    {
+        len++;
+
+        temp = temp->next;
+    }
+
+    int sum = 0;
+
+    int local = pow(2, len - 1);
+
+    temp = head;
+
+    for (int i = 0; i < len; i++)
+    {
+        if (temp->val == 1)
+            sum += local;
+
+        local /= 2;
+
+        temp = temp->next;
+    }
+
+    return sum;
+}
+
+ListNode *mergeInBetween(ListNode *list1, int a, int b, ListNode *list2)
+{
+    ListNode *temp = list1;
+
+    for (int i = 0; i < a - 1; i++)
+    {
+        temp = temp->next;
+    }
+
+    ListNode *first = temp;
+
+    temp = temp->next;
+
+    for (int i = a; i <= b; i++)
+    {
+        ListNode *t = temp;
+        temp = temp->next;
+        delete t;
+    }
+
+    ListNode *last = temp;
+
+    first->next = list2;
+
+    temp = list2;
+
+    while (temp->next)
+    {
+        temp = temp->next;
+    }
+
+    temp->next = last;
+
+    return list1;
+}
+
+class BrowserHistory
+{
+    int current;
+    int total;
+    vector<string> urls;
+
+public:
+    BrowserHistory(string homepage)
+    {
+        current = 0;
+        total = 1;
+
+        urls.clear();
+
+        for (int i = 0; i < 500000; i++)
+        {
+            urls.push_back("");
+        }
+
+        urls[current] = homepage;
+    }
+
+    void visit(string url)
+    {
+        current++;
+        total = current + 1;
+
+        urls[current] = url;
+    }
+
+    string back(int steps)
+    {
+        if (current - steps < 0)
+            current = 0;
+
+        else
+            current -= steps;
+
+        return urls[current];
+    }
+
+    string forward(int steps)
+    {
+        if (current + steps > total)
+            current = total - 1;
+
+        else
+            current += steps;
+
+        return urls[current];
+    }
+};
+
+ListNode *oddEvenList(ListNode *head)
+{
+    int parity = 0;
+
+    ListNode *even = nullptr;
+
+    ListNode *odd = nullptr;
+
+    ListNode *temp = head;
+
+    ListNode *t1, *t2;
+
+    while (temp)
+    {
+        if (parity == 0)
+        {
+            if (even == nullptr)
+            {
+                even = new ListNode(temp->val);
+                t1 = even;
+            }
+            else
+            {
+                t1->next = new ListNode(temp->val);
+                t1 = t1->next;
+            }
+        }
+        else
+        {
+            if (odd == nullptr)
+            {
+                odd = new ListNode(temp->val);
+                t2 = odd;
+            }
+            else
+            {
+                t2->next = new ListNode(temp->val);
+                t2 = t2->next;
+            }
+        }
+        parity = 1 - parity;
+
+        temp = temp->next;
+    }
+
+    if (t1 != nullptr)
+        t1->next = odd;
+
+    return even;
+}
+
 int main()
-{   
-    ListNode* l1 = new ListNode(1);
+{
+    ListNode *l1 = new ListNode(1);
     l1->next = new ListNode(2);
     l1->next->next = new ListNode(3);
     l1->next->next->next = new ListNode(4);
-    l1->next->next->next->next = new ListNode(4);
-    l1->next->next->next->next->next = new ListNode(6);
+    l1->next->next->next->next = new ListNode(5);
+    //l1->next->next->next->next->next = new ListNode(6);
 
-
-    ListNode* l2 = new ListNode(9);
+    ListNode *l2 = new ListNode(9);
     l2->next = new ListNode(9);
 
     //cout<<hasCycle(l1);
-
 
     //l2->next->next = new ListNode(4);
 
@@ -429,13 +590,15 @@ int main()
     //ListNode* ret = removeElements(l1, 1);
 
     //cout<<length(l2);
-    ListNode * ret = deleteDuplicates(l1);
+    // ListNode *ret = deleteDuplicates(l1);
+
+    ListNode *ret = oddEvenList(l1);
 
     // deleteNode(l1->next->next);
 
-    while(ret)
+    while (ret)
     {
-        cout<<ret->val<<" ";
+        cout << ret->val << " ";
         ret = ret->next;
     }
 }
