@@ -14,7 +14,7 @@ struct ListNode
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
+ListNode *addTwoNumbers1(ListNode *l1, ListNode *l2)
 {
     ListNode *root = nullptr;
 
@@ -569,17 +569,148 @@ ListNode *oddEvenList(ListNode *head)
     return even;
 }
 
+ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
+{
+    ListNode *temp1 = l1;
+    ListNode *temp2 = l2;
+
+    int len1 = 0, len2 = 0;
+
+    vector<int> v1;
+    vector<int> v2;
+
+    int dif = 0;
+
+    while (temp1)
+    {
+        len1++;
+
+        temp1 = temp1->next;
+    }
+
+    while (temp2)
+    {
+        len2++;
+
+        temp2 = temp2->next;
+    }
+
+    if (len1 < len2)
+    {
+        dif = len2 - len1;
+
+        for (int i = 0; i < dif; i++)
+        {
+            v1.push_back(0);
+        }
+    }
+    else
+    {
+        dif = len1 - len2;
+
+        for (int i = 0; i < dif; i++)
+        {
+            v2.push_back(0);
+        }
+    }
+
+    temp1 = l1, temp2 = l2;
+
+    while (temp1)
+    {
+        v1.push_back(temp1->val);
+
+        temp1 = temp1->next;
+    }
+
+    while (temp2)
+    {
+        v2.push_back(temp2->val);
+
+        temp2 = temp2->next;
+    }
+
+    int sum = 0;
+    int carry = 0;
+
+    stack<int> add;
+
+    int len = v1.size();
+
+    for (int i = len - 1; i >= 0; i--)
+    {
+        sum = v1[i] + v2[i] + carry;
+
+        carry = sum / 10;
+
+        sum = sum % 10;
+
+        add.push(sum);
+    }
+
+    if (carry > 0)
+        add.push(carry);
+
+    ListNode *result = nullptr;
+    ListNode *t;
+
+    while (!add.empty())
+    {
+        int v = add.top();
+
+        if (result == nullptr)
+        {
+            result = new ListNode(v);
+            t = result;
+        }
+        else
+        {
+            t->next = new ListNode(v);
+            t = t->next;
+        }
+
+        add.pop();
+    }
+
+    return result;
+}
+
+ListNode *middleNode(ListNode *head)
+{
+    ListNode *temp = head;
+    int count = 0;
+
+    while (temp)
+    {
+        count++;
+
+        temp = temp->next;
+    }
+
+    int mid = count / 2;
+
+    temp = head;
+
+    for (int i = 0; i < mid; i++)
+    {
+        temp = temp->next;
+    }
+
+    return temp;
+}
+
 int main()
 {
-    ListNode *l1 = new ListNode(1);
+    ListNode *l1 = new ListNode(9);
     l1->next = new ListNode(2);
-    l1->next->next = new ListNode(3);
-    l1->next->next->next = new ListNode(4);
-    l1->next->next->next->next = new ListNode(5);
+    l1->next->next = new ListNode(4);
+    l1->next->next->next = new ListNode(3);
+    //l1->next->next->next->next = new ListNode(5);
     //l1->next->next->next->next->next = new ListNode(6);
 
     ListNode *l2 = new ListNode(9);
-    l2->next = new ListNode(9);
+    l2->next = new ListNode(6);
+    l2->next->next = new ListNode(4);
 
     //cout<<hasCycle(l1);
 
@@ -594,11 +725,13 @@ int main()
 
     ListNode *ret = oddEvenList(l1);
 
+    ret = addTwoNumbers(l1, l2);
+
     // deleteNode(l1->next->next);
 
     while (ret)
     {
-        cout << ret->val << " ";
+        cout << ret->val;
         ret = ret->next;
     }
 }

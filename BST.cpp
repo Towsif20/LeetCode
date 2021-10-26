@@ -105,6 +105,39 @@ vector<int> preorderTraversal(TreeNode *root)
     return order;
 }
 
+void flatten(TreeNode *root)
+{
+    vector<int> preorder = preorderTraversal(root);
+
+    TreeNode *t = root;
+
+    for (int i = 0; i < preorder.size(); i++)
+    {
+        if (i == 0)
+        {
+            t = root;
+        }
+        else
+        {
+            if (t->left != nullptr)
+            {
+                delete t->left;
+            }
+
+            if (t->right == nullptr)
+            {
+                t->right = new TreeNode(preorder[i]);
+                t = t->right;
+            }
+            else
+            {
+                t->right->val = preorder[i];
+                t = t->right;
+            }
+        }
+    }
+}
+
 void postOrderTraversalUtil(TreeNode *root, vector<int> &order)
 {
     if (root == nullptr)
@@ -272,6 +305,21 @@ bool isCousins(TreeNode *root, int x, int y)
 
     return true;
 }
+
+TreeNode *invertTree(TreeNode *root)
+{
+    if (root == nullptr)
+        return nullptr;
+
+    root->left = invertTree(root->left);
+    root->right = invertTree(root->right);
+
+    swap(root->left, root->right);
+
+    return root;
+}
+
+
 
 int main()
 {
