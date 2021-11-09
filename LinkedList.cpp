@@ -699,6 +699,92 @@ ListNode *middleNode(ListNode *head)
     return temp;
 }
 
+vector<int> nodesBetweenCriticalPoints(ListNode *head)
+{
+    int min = -1;
+    int max = -1;
+
+    vector<int> result;
+
+    if (head == nullptr)
+    {
+        result.push_back(min);
+        result.push_back(max);
+
+        return result;
+    }
+
+    ListNode *temp = head;
+
+    ListNode *prev = head;
+    temp = head->next;
+
+    if (temp == nullptr)
+    {
+        result.push_back(min);
+        result.push_back(max);
+
+        return result;
+    }
+
+    if (temp->next == nullptr)
+    {
+        result.push_back(min);
+        result.push_back(max);
+
+        return result;
+    }
+
+    int i = 1;
+    int prevMin = -1;
+    int minDist = INT_MAX;
+
+    while (temp->next)
+    {
+        int current, left, right;
+
+        current = temp->val;
+        left = prev->val;
+        right = temp->next->val;
+
+        if ((current < left && current < right) || (current > left && current > right))
+        {
+            if (min == -1)
+            {
+                min = max = i;
+                prevMin = i;
+            }
+            else
+            {
+                max = i;
+                if (max - prevMin < minDist)
+                    minDist = max - prevMin;
+
+                prevMin = i;
+            }
+        }
+
+        prev = temp;
+        temp = temp->next;
+        i++;
+    }
+
+    if (min == max)
+    {
+        min = max = -1;
+
+        result.push_back(min);
+        result.push_back(max);
+
+        return result;
+    }
+
+    result.push_back(minDist);
+    result.push_back(max - min);
+
+    return result;
+}
+
 int main()
 {
     ListNode *l1 = new ListNode(9);
