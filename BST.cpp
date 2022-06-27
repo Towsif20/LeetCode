@@ -319,7 +319,67 @@ TreeNode *invertTree(TreeNode *root)
     return root;
 }
 
+TreeNode *constructMaximumBinaryTree(vector<int> &nums)
+{
+    int len = nums.size();
 
+    int low = 0;
+    int high = len - 1;
+
+    return constructionUtil(nums, low, high);
+}
+
+TreeNode *constructionUtil(vector<int> &nums, int low, int high)
+{
+    if (low > high)
+    {
+        return nullptr;
+    }
+
+    int max = INT_MIN;
+    int mid = low;
+
+    cout << low << " " << high << endl;
+    for (int i = low; i <= high; i++)
+    {
+        cout << nums[i] << " ";
+        if (nums[mid] < nums[i])
+        {
+            //max = nums[i];
+            mid = i;
+        }
+        }
+
+    //cout <<endl<< max << endl;
+
+    cout << endl;
+
+    TreeNode *root = new TreeNode(nums[mid]);
+
+    root->left = constructionUtil(nums, low, mid - 1);
+    root->right = constructionUtil(nums, mid + 1, high);
+
+    return root;
+}
+
+bool checkSymmetry(TreeNode* l, TreeNode* r)
+{
+    if(l == nullptr && r == nullptr)
+        return true;
+
+    if ((l == nullptr && r != nullptr) || (l != nullptr && r == nullptr))
+        return false;
+
+    if(l->val == r->val)
+        return checkSymmetry(l->left, r->right) && checkSymmetry(l->right, r->left);
+
+    return false;
+}
+
+bool isSymmetric(TreeNode *root)
+{
+    return checkSymmetry(root->left, root->right);
+}
 
 int main()
 {

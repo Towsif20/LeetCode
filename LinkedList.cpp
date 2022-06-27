@@ -215,38 +215,55 @@ bool isPalindrome(ListNode *head)
     return true;
 }
 
+// ListNode *reverseList(ListNode *head)
+// {
+//     vector<int> v;
+
+//     ListNode *temp = head;
+
+//     while (temp)
+//     {
+//         v.push_back(temp->val);
+
+//         temp = temp->next;
+//     }
+
+//     int len = v.size();
+
+//     ListNode *reverse = nullptr;
+//     ListNode *current = nullptr;
+
+//     for (int i = len - 1; i >= 0; i--)
+//     {
+//         if (reverse == nullptr)
+//         {
+//             reverse = new ListNode(v[i]);
+//             current = reverse;
+//             continue;
+//         }
+
+//         current->next = new ListNode(v[i]);
+//         current = current->next;
+//     }
+
+//     return reverse;
+// }
+
 ListNode *reverseList(ListNode *head)
 {
-    vector<int> v;
+    ListNode* prev = nullptr;
+    ListNode* current = head;
 
-    ListNode *temp = head;
-
-    while (temp)
+    while (current)
     {
-        v.push_back(temp->val);
-
-        temp = temp->next;
+        ListNode* temp = current->next;
+        current->next = prev;
+        prev = current;
+        current = temp;
     }
 
-    int len = v.size();
-
-    ListNode *reverse = nullptr;
-    ListNode *current = nullptr;
-
-    for (int i = len - 1; i >= 0; i--)
-    {
-        if (reverse == nullptr)
-        {
-            reverse = new ListNode(v[i]);
-            current = reverse;
-            continue;
-        }
-
-        current->next = new ListNode(v[i]);
-        current = current->next;
-    }
-
-    return reverse;
+    return prev;
+    
 }
 
 ListNode *getIntersectionNode(ListNode *headA, ListNode *headB)

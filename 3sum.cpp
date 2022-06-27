@@ -43,6 +43,45 @@ vector<vector<int>> threeSum(vector<int> &nums)
     return result;
 }
 
+int threeSumClosest(vector<int> &nums, int target)
+{
+    sort(nums.begin(), nums.end());
+
+    int len = nums.size();
+
+    int min = INT_MAX;
+
+    int result = target;
+
+    for (int i = 0; i < len; i++)
+    {
+        int j = i + 1;
+        int k = len - 1;
+
+        while (j < k)
+        {
+            int val = nums[i] + nums[j] + nums[k];
+            int d = abs(val - target);
+
+            if (d == 0)
+                return val;
+
+            if (d < min)
+            {
+                min = d;
+                result = val;
+            }
+
+            if (val - target > 0)
+                k--;
+            else
+                j++;
+        }
+    }
+
+    return result;
+}
+
 int main()
 {
     vector<int> v = {0, 0, 0, 0};
